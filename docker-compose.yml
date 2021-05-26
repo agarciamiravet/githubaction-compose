@@ -1,8 +1,6 @@
-version: "3.7"
-
+version: "3.9"
 networks:
   spark-network:
-  
 services:
   sqlserver:
     image: "mcr.microsoft.com/mssql/server"
@@ -28,11 +26,3 @@ services:
       - "8081:8081"
     networks:
       - spark-network
-      
-      
-      
-      
-      
-      
-      
-     
