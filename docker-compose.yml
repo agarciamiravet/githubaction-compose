@@ -11,18 +11,3 @@ services:
         ACCEPT_EULA: "Y"
     networks:
       - spark-network
-  spark-master:
-    image: "alexgarciamiravet/spark-master:latest"
-    ports:
-      - "7077:7077"
-      - "8080:8080"
-    networks:
-      - spark-network
-   spark-worker:
-    image: "alexgarciamiravet/spark-worker:latest"
-    depends_on:
-      - "spark-master"
-    ports:
-      - "8081:8081"
-    networks:
-      - spark-network
