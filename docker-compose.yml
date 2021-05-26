@@ -11,3 +11,10 @@ services:
         ACCEPT_EULA: "Y"
     networks:
       - spark-network
+  spark-master:
+    image: "alexgarciamiravet/spark-master:latest"
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    networks:
+      - spark-network
