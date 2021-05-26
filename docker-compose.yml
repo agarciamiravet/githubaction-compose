@@ -1,0 +1,15 @@
+version: "3.7"
+
+networks:
+  spark-network:
+  
+services:
+  blogapp-sqlserver:
+    image: "mcr.microsoft.com/mssql/server"
+    ports:
+      - "1433:1433"
+    environment:
+        SA_PASSWORD: "P@ssw0rD"
+        ACCEPT_EULA: "Y"
+    networks:
+      - spark-network
