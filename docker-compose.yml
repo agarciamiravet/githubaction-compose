@@ -12,14 +12,14 @@ services:
     networks:
       - spark-network
   spark-master:
-    image: "alexgarciamiravet/spark-master:latest"
+    image: "alexgarciamiravet/spark-master:3.1.1-hadoop3.2"
     ports:
       - "7077:7077"
       - "8080:8080"
     networks:
       - spark-network
   spark-worker:
-    image: "alexgarciamiravet/spark-worker:latest"
+    image: "alexgarciamiravet/spark-worker:3.1.1-hadoop3.2"
     depends_on:
       - "spark-master"
     ports:
