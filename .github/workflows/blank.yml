@@ -24,12 +24,17 @@ jobs:
     steps:
      - name: Check out code
        uses: actions/checkout@v2
-    
-     - name: Start dependencies (docker-compose)
-       run: |
-          docker-compose up -d 
-          
-     - name: Wait for SQL Server container
-       uses: jakejarvis/wait-action@master
+     - uses: actions/setup-python@v2
        with:
-          time: '30s'
+        python-version: '3.8'
+  
+     - uses: actions/setup-java@v1
+       with:
+        java-version: '11'
+
+     - uses: vemonet/setup-spark@v1
+       with:
+        spark-version: '3.1.1'
+        hadoop-version: '2.7'
+
+     - run: spark-submit --version
