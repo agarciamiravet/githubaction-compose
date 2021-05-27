@@ -3,7 +3,6 @@ from pyspark.sql import SparkSession
 spark = SparkSession.\
         builder.\
         appName("pyspark-notebook").\
-        master(local).\
         getOrCreate()
 
 sc = spark.sparkContext
