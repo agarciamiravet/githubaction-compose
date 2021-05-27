@@ -37,4 +37,8 @@ jobs:
         spark-version: '3.1.1'
         hadoop-version: '2.7'
 
+     - run: |
+         wget https://search.maven.org/remotecontent?filepath=com/microsoft/azure/spark-mssql-connector_2.12_3.0/1.0.0-alpha/spark-mssql-connector_2.12_3.0-1.0.0-alpha.jar
+         wget  https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/9.2.0.jre8/mssql-jdbc-9.2.0.jre8.jar
+     
      - run: python test.py
