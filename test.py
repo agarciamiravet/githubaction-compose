@@ -1,19 +1,12 @@
-from pyspark.sql import SparkSession
-
-spark = SparkSession.\
-        builder.\
-        appName("pyspark-notebook").\
-        getOrCreate()
-
-sc = spark.sparkContext
+import pyspark
+from pyspark import SparkContext
+sc =SparkContext()
 
 
-def inside(p):
-    x, y = random.random(), random.random()
-    return x*x + y*y < 1
+nums= sc.parallelize([1,2,3,4])		
 
-NUM_SAMPLES = 10000
+nums.take(1)
 
-count = sc.parallelize(range(0, NUM_SAMPLES)) \
-             .filter(inside).count()
-print("Pi is roughly %f" % (4.0 * count / NUM_SAMPLES))
+squared = nums.map(lambda x: x*x).collect()
+for num in squared:
+    print('%i ' % (num))
