@@ -35,7 +35,7 @@ jobs:
      - uses: vemonet/setup-spark@v1
        with:
         spark-version: '3.1.1'
-        hadoop-version: '2.7'
+        hadoop-version: '3.2'
 
      - run: |
          wget https://search.maven.org/remotecontent?filepath=com/microsoft/azure/spark-mssql-connector_2.12_3.0/1.0.0-alpha/spark-mssql-connector_2.12_3.0-1.0.0-alpha.jar
