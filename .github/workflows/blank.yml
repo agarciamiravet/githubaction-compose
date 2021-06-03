@@ -24,21 +24,55 @@ jobs:
     steps:
      - name: Check out code
        uses: actions/checkout@v2
-     - uses: actions/setup-python@v2
-       with:
-        python-version: '3.8'
-  
-     - uses: actions/setup-java@v1
-       with:
-        java-version: '11'
-
-     - uses: vemonet/setup-spark@v1
-       with:
-        spark-version: '3.1.1'
-        hadoop-version: '3.2'
-
-     - run: |
-         wget https://search.maven.org/remotecontent?filepath=com/microsoft/azure/spark-mssql-connector_2.12_3.0/1.0.0-alpha/spark-mssql-connector_2.12_3.0-1.0.0-alpha.jar
-         wget  https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/9.2.0.jre8/mssql-jdbc-9.2.0.jre8.jar
      
-     - run: python test.py
+     - name: Up Sql Server 
+     - run: docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=P@ssw0rd' -p 1234:1433 -d mcr.microsoft.com/mssql/server
+     
+     - name: Check if SQLServer is up
+       shell: pwsh
+       run: |   
+                $connected= $false
+                $ServerName = "localhost"
+                $DatabaseName = "master"
+                $Port = "1666"
+                $userName = "sa"
+                $password = "P@ssw0rd"  
+                $connectionString = 'Data Source={0},{1};database={2};User ID={3};Password={4}' -f $ServerName,$Port, $DatabaseName,$userName,$password
+                $sqlConnection = New-Object System.Data.SqlClient.SqlConnection $ConnectionString
+
+                while($connected -ne $true)
+                {
+                  try {
+
+                      $sqlConnection.Open()
+                      ## This will run if the Open() method does not throw an exception
+                      $connected=$true
+                      Write-Output "Connected"
+                 } catch {
+
+                     if($_.Exception.Message.ToLower() -like "*login failed*")
+                     {
+                       Write-Output "Login failed, check password please."
+                       Throw;
+                     }
+                     else
+                     {
+                        Write-Host $_.Exception.Message`n
+                        Write-Output "No Connected"
+                        $connected=$false
+                        Start-Sleep -Seconds 5
+                     }
+
+                 } finally {
+                     ## Close the connection when we're done
+                     Write-Output "finish connection"
+                     $sqlConnection.Close()
+                 }
+                }
+              
+       timeout-minutes: 2
+   
+              
+       
+     
+     
