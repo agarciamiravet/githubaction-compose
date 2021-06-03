@@ -34,7 +34,7 @@ jobs:
                 $connected= $false
                 $ServerName = "localhost"
                 $DatabaseName = "master"
-                $Port = "1666"
+                $Port = "1234"
                 $userName = "sa"
                 $password = "P@ssw0rd"  
                 $connectionString = 'Data Source={0},{1};database={2};User ID={3};Password={4}' -f $ServerName,$Port, $DatabaseName,$userName,$password
